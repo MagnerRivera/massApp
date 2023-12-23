@@ -23,5 +23,9 @@
     <string name="settings">Ajustes</string>
     <string name="logout">Salir</string>
     <string name="address">Digite su dirección</string>
-    <string name="document">Digite el numero de documento</string>
+    <string name="document">Digite el número de documento</string>
+    <string name="search_cards">Buscar número de la tarjeta</string>
+    <string name="search_card">Buscar numero de la tarjeta</string>
+    <string name="empty_card">No hay tarjetas con ese número</string>
+    <string name="registrar_tarjeta">Registrar tarjeta</string>
 </resources>

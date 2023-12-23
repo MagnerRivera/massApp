@@ -12,3 +12,12 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE username = :username AND password = :password")
     fun getUserByEmailAndPassword(username: String, password: String): User?
 }
+
+@Dao
+interface CardInfoDao {
+    @Insert
+    fun insertCardInfo(cardInfo: CardInfo)
+
+    @Query("SELECT * FROM card_info WHERE card = :cardNumber")
+    fun getCardInfoByCardNumber(cardNumber: String): CardInfo?
+}

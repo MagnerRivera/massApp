@@ -13,3 +13,11 @@ data class User(
     val address: String,
     val email: String,
 )
+
+@Entity(tableName = "card_info")
+data class CardInfo(
+    @PrimaryKey val id: String = UUID.randomUUID().toString(),
+    val card: String,
+    val balance: Int,
+    val balanceDate: String
+)

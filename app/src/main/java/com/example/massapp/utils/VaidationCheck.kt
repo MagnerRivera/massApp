@@ -6,6 +6,9 @@ fun validateDocument(document: String): RegisterValidation {
     if (document.isEmpty())
         return RegisterValidation.Failed("El documento no puede estar vacío")
 
+    if (document.length < 10)
+        return RegisterValidation.Failed("El documento debe tener más de 9 caracteres")
+
     return RegisterValidation.Success
 }
 
@@ -29,9 +32,6 @@ fun validateName(name: String): RegisterValidation {
 fun validateAddress(address: String): RegisterValidation {
     if (address.isEmpty())
         return RegisterValidation.Failed("La direccion no puede estar vacio no puede estar vacío")
-
-    if (address.length < 10)
-        return RegisterValidation.Failed("El documento debe tener más de 9 caracteres")
 
     return RegisterValidation.Success
 }
