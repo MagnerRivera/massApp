@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shopping_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.massapp.fragments.options.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_registerCardFragment"
+            app:destination="@id/registerCardFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gestionCardFragment"
+            app:destination="@id/gestionCardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.massapp.fragments.options.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile"/>
+    <fragment
+        android:id="@+id/registerCardFragment"
+        android:name="com.example.massapp.fragments.options.RegisterCardFragment"
+        android:label="RegisterCardFragment"
+        tools:layout="@layout/fragment_register_card"/>
+    <fragment
+        android:id="@+id/gestionCardFragment"
+        android:name="com.example.massapp.fragments.options.GestionCardFragment"
+        android:label="GestionCardFragment"
+        tools:layout="@layout/fragment_gestion_card">
+        <action
+            android:id="@+id/action_gestionCardFragment_to_detailCardFragment"
+            app:destination="@id/detailCardFragment">
+        <argument
+            android:name="cardNumber"
+            app:argType="string" />
+            <argument
+            android:name="amount"
+            app:argType="string" />
+            <argument
+            android:name="date"
+            app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailCardFragment"
+        android:name="com.example.massapp.fragments.options.DetailCardFragment"
+        android:label="DetailCardFragment"
+        tools:layout="@layout/fragment_detail_card"/>
+</navigation>

@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">MassApp</string>
+    <string name="home">Home</string>
+    <string name="profile">Perfil</string>
+    <string name="rightAddress">La mejor aplicación para gestionar tus tarjetas en cualquier día.</string>
+    <string name="qulity">¡Ahora es muy fácil   alcanzar la mejor calidad de tus tarjetas en la palma de tu mano!</string>
+    <string name="register">Registrar</string>
+    <string name="login">Login</string>
+    <string name="start">Comencemos</string>
+    <string name="goLogin">¡Vamos a ingresar!</string>
+    <string name="goNotAcount">¿No tienes una cuenta? Registro</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="goRegister">¡Vamos a registrarnos!</string>
+    <string name="haveAcount">¿Ya tienes una cuenta? ingresar</string>
+    <string name="name">Digite su nombre completo</string>
+    <string name="number_version">versión 1.0</string>
+    <string name="welcome">¡Bienvenido!</string>
+    <string name="regional">¡Bienvenido usuario!</string>
+    <string name="state">Gestionar tarjeta</string>
+    <string name="registerEmpleado">Registrar la tarjeta</string>
+    <string name="add">Agregar tarjeta</string>
+    <string name="settings">Ajustes</string>
+    <string name="logout">Salir</string>
+    <string name="address">Digite su dirección</string>
+    <string name="document">Digite el número de documento</string>
+    <string name="search_cards">Buscar número de la tarjeta</string>
+    <string name="search_card">Buscar número de la tarjeta</string>
+    <string name="empty_card">No hay tarjetas con ese número</string>
+    <string name="registrar_tarjeta">Registrar tarjeta</string>
+    <string name="gestion_card">Gestión de las tarjetas</string>
+    <string name="dalte_card">Eliminar Tarjeta</string>
+    <string name="cancel">Cancelar</string>
+    <string name="nothing_cards">No hay tarjetas registradas</string>
+    <string name="not_add_card">No agregar tarjeta</string>
 </resources>
