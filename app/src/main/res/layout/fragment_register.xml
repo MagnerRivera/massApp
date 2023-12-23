@@ -140,22 +140,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edittextHeight"
                     android:background="@drawable/rounded_edittext_background"
-                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawableLeft="@drawable/ic_address"
                     android:hint="@string/address"
                     android:inputType="text"
                     android:paddingStart="20dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Spinner
+                android:id="@+id/spinnerValues"
+                style="@style/SpinnerStyle"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/rounded_edittext_background"
+                app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
+                app:layout_constraintTop_toBottomOf="@id/textInputLayoutAddressRegister" />
+
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutDocumentRegister"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:gravity="center"
                 app:hintEnabled="true"
                 app:layout_constraintEnd_toEndOf="@id/guidelineRegisterRight"
                 app:layout_constraintStart_toStartOf="@id/guidelineRegisterLeft"
-                app:layout_constraintTop_toBottomOf="@id/textInputLayoutAddressRegister">
+                app:layout_constraintTop_toBottomOf="@id/spinnerValues">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edDocumentRegister"
@@ -163,12 +176,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/edittextHeight"
                     android:background="@drawable/rounded_edittext_background"
-                    android:drawableLeft="@drawable/ic_lock"
+                    android:drawableLeft="@drawable/ic_document"
+                    android:enabled="false"
                     android:hint="@string/document"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:paddingStart="20dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
                 android:id="@+id/buttonRegisterRegister"

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_registerCardFragment"
             app:destination="@id/registerCardFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_gestionCardFragment"
+            app:destination="@id/gestionCardFragment" />
     </fragment>
 
     <fragment
@@ -25,4 +28,28 @@
         android:name="com.example.massapp.fragments.options.RegisterCardFragment"
         android:label="RegisterCardFragment"
         tools:layout="@layout/fragment_register_card"/>
+    <fragment
+        android:id="@+id/gestionCardFragment"
+        android:name="com.example.massapp.fragments.options.GestionCardFragment"
+        android:label="GestionCardFragment"
+        tools:layout="@layout/fragment_gestion_card">
+        <action
+            android:id="@+id/action_gestionCardFragment_to_detailCardFragment"
+            app:destination="@id/detailCardFragment">
+        <argument
+            android:name="cardNumber"
+            app:argType="string" />
+            <argument
+            android:name="amount"
+            app:argType="string" />
+            <argument
+            android:name="date"
+            app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/detailCardFragment"
+        android:name="com.example.massapp.fragments.options.DetailCardFragment"
+        android:label="DetailCardFragment"
+        tools:layout="@layout/fragment_detail_card"/>
 </navigation>

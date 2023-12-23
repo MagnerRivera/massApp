@@ -1,6 +1,7 @@
 package com.example.massapp.room
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 
@@ -20,4 +21,10 @@ interface CardInfoDao {
 
     @Query("SELECT * FROM card_info WHERE card = :cardNumber")
     fun getCardInfoByCardNumber(cardNumber: String): CardInfo?
+
+    @Query("SELECT * FROM card_info")
+    fun getAllCardInfo(): List<CardInfo>
+
+    @Delete
+    fun deleteCardInfo(cardInfo: CardInfo)
 }

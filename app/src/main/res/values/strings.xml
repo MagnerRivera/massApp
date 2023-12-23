@@ -14,9 +14,9 @@
     <string name="goRegister">¡Vamos a registrarnos!</string>
     <string name="haveAcount">¿Ya tienes una cuenta? ingresar</string>
     <string name="name">Digite su nombre completo</string>
-    <string name="number_version">version 1.0</string>
+    <string name="number_version">versión 1.0</string>
     <string name="welcome">¡Bienvenido!</string>
-    <string name="regional">Regional</string>
+    <string name="regional">¡Bienvenido usuario!</string>
     <string name="state">Gestionar tarjeta</string>
     <string name="registerEmpleado">Registrar la tarjeta</string>
     <string name="add">Agregar tarjeta</string>
@@ -25,7 +25,12 @@
     <string name="address">Digite su dirección</string>
     <string name="document">Digite el número de documento</string>
     <string name="search_cards">Buscar número de la tarjeta</string>
-    <string name="search_card">Buscar numero de la tarjeta</string>
+    <string name="search_card">Buscar número de la tarjeta</string>
     <string name="empty_card">No hay tarjetas con ese número</string>
     <string name="registrar_tarjeta">Registrar tarjeta</string>
+    <string name="gestion_card">Gestión de las tarjetas</string>
+    <string name="dalte_card">Eliminar Tarjeta</string>
+    <string name="cancel">Cancelar</string>
+    <string name="nothing_cards">No hay tarjetas registradas</string>
+    <string name="not_add_card">No agregar tarjeta</string>
 </resources>

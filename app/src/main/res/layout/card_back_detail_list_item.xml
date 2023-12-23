@@ -46,49 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageCartTullave" />
 
-        <TextView
-            android:id="@+id/tvNumberCard"
-            style="@style/TextColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/goRegister"
-            android:textAlignment="center"
-            android:textSize="28sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/amount"
-            style="@style/TextColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:gravity="center"
-            android:text="@string/goRegister"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageAlcaldia"
-            app:layout_constraintHorizontal_bias="0.099"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNumberCard" />
-
-        <TextView
-            android:id="@+id/date"
-            style="@style/TextColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="136dp"
-            android:gravity="center"
-            android:text="@string/goRegister"
-            android:textAlignment="center"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toStartOf="@+id/imageAlcaldia"
-            app:layout_constraintTop_toBottomOf="@+id/amount" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

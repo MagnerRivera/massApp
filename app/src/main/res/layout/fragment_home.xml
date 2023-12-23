@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -31,6 +30,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tvName"
                     style="@style/TextColor"
@@ -78,7 +78,7 @@
                         style="@style/AddCard"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
 
                     <TextView
                         style="@style/TextColor"
@@ -112,14 +112,14 @@
                         style="@style/GestionCard"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
-                        android:layout_gravity="center"/>
+                        android:layout_gravity="center" />
 
                     <TextView
                         style="@style/TextColor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Gestion de las tarjetas"
+                        android:text="@string/gestion_card"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 

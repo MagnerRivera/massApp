@@ -6,7 +6,7 @@ fun validateDocument(document: String): RegisterValidation {
     if (document.isEmpty())
         return RegisterValidation.Failed("El documento no puede estar vacío")
 
-    if (document.length < 10)
+    if (document.length < 6)
         return RegisterValidation.Failed("El documento debe tener más de 9 caracteres")
 
     return RegisterValidation.Success

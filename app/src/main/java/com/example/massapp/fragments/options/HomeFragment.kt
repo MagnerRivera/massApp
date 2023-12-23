@@ -16,21 +16,23 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater)
 
         binding.cardViewRegister.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_registerCardFragment)
         }
+        binding.secondCardView.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_gestionCardFragment)
+        }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                //
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    //
+                }
+            })
 
         return binding.root
     }

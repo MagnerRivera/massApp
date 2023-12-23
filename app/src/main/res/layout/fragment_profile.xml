@@ -2,7 +2,6 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/ScreenBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
@@ -52,35 +51,20 @@
 
                 <ImageView
                     android:id="@+id/imageUser"
-                    android:layout_width="43dp"
-                    android:layout_height="43dp"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/settings_items_background"
-                    android:backgroundTint="@color/black"
-                    android:src="@drawable/ic_profile"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-
-                <TextView
-                    android:id="@+id/userName"
-                    style="@style/TextColor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="3dp"
-                    android:text="@string/welcome"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toEndOf="@id/imageUser"
-                    app:layout_constraintTop_toTopOf="@+id/imageUser" />
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_person"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
-                android:id="@+id/regional"
+                android:id="@+id/bienvenido"
                 style="@style/MediumTextViewThin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,6 +72,8 @@
                 android:text="@string/regional"
                 android:textColor="@color/black"
                 android:textStyle="normal"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@id/constraintProfile" />
 
@@ -99,13 +85,13 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintTop_toBottomOf="@id/regional">
+                app:layout_constraintTop_toBottomOf="@id/bienvenido">
 
                 <LinearLayout
                     android:id="@+id/linearLogOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 

@@ -1,11 +1,14 @@
 package com.example.massapp.fragments.loginRegister
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,6 +36,7 @@ class RegisterFragment : Fragment() {
 
     private lateinit var binding: FragmentRegisterBinding
     private val viewModel by viewModels<RegisterViewModel>()
+    private var isDocumentEditable = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +56,9 @@ class RegisterFragment : Fragment() {
         }
 
         binding.apply {
+
+            val maxDigits = 12
+
             edNameRegister.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     val name = edNameRegister.text.toString().trim()
@@ -60,7 +67,35 @@ class RegisterFragment : Fragment() {
                 }
             }
 
+            edDocumentRegister.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxDigits))
+
+            val spinnerValues = arrayOf("Seleccione tipo de documento", "Cédula de ciudadania", "Cédula de extranjeria", "Pasaporte")
+            val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerValues)
+            spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            binding.spinnerValues.adapter = spinnerAdapter
+
+            binding.spinnerValues.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    isDocumentEditable = position != 0
+                    edDocumentRegister.isEnabled = isDocumentEditable
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // No se necesita hacer nada aquí
+                }
+            }
+
             buttonRegisterRegister.setOnClickListener {
+                if (!isDocumentEditable) {
+                    Toast.makeText(requireContext(), "Seleccione un tipo de documento", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
                 val nameRegex = edNameRegister.text.toString().trim()
                 val emailRegex = edEmailRegister.text.toString().trim()
                 val addressRegex = edAddressRegister.text.toString().trim()
