@@ -193,7 +193,7 @@ class RegisterFragment : Fragment() {
                     }
 
                     is Resource.Error -> {
-                        Log.e(TAG, it.menssage.toString())
+                        Log.e(TAG, it.message.toString())
                         binding.buttonRegisterRegister.revertAnimation()
                     }
 

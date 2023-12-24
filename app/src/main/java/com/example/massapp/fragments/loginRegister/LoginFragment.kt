@@ -74,7 +74,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                     is Resource.Error -> {
                         // Muestro un mensaje de error en caso de error durante el inicio de sesión
-                        Toast.makeText(requireContext(), it.menssage, Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(), it.message, Toast.LENGTH_LONG).show()
                         binding.buttonLoginLogin.revertAnimation()
                     }
 
