@@ -49,37 +49,46 @@ class RegisterCardFragment : Fragment() {
             findNavController().popBackStack()
         }
 
+        // Configuración de la barra de búsqueda
         val imageSearch = binding.imageSearch
         val editTextSearch = binding.editTextSearch
 
         imageSearch.setOnClickListener {
             if (editTextSearch.visibility == View.VISIBLE) {
+                // Oculto la barra de búsqueda
                 AnimationUtils.slideViewUp(editTextSearch)
                 editTextSearch.visibility = View.INVISIBLE
             } else {
+                // Muestro la barra de búsqueda
                 AnimationUtils.slideViewDown(editTextSearch)
                 editTextSearch.visibility = View.VISIBLE
             }
         }
-
+        // Configuración del botón de búsqueda
         binding.buttonSearchCard.setOnClickListener {
 
+            // Obtengo el servicio del teclado virtual para ocultar el teclado
             val imm =
                 requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(binding.buttonSearchCard.windowToken, 0)
 
+            // Configuración de la visibilidad de las vistas durante la búsqueda
             progressBarCircular.visibility = View.VISIBLE
             binding.consCard.visibility = View.INVISIBLE
             binding.tvEmpty.visibility = View.INVISIBLE
             binding.linearOptions.visibility = View.INVISIBLE
 
+            // Obtiengo el número de tarjeta ingresado en el campo de búsqueda
             val cardNumber = binding.editTextSearch.text.toString().trim()
             Log.d("TAG", "Enviando solicitud con número de tarjeta: $cardNumber")
 
+            // Verifico si el número de tarjeta no está vacío
             if (cardNumber.isNotEmpty()) {
+                // Token de autenticación para las solicitudes
                 val authToken =
                     "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJtYWFzIiwiaXNzIjoicmJzYXMuY28iLCJjb21wYW55IjoiMTAwMiIsImV4cCI6MTcwMzQxOTI3NiwidXNlciI6InBydWViYS5hbmRyb2lkIiwiaWF0IjoxNzAzMTk2MDc2LCJHcnVwb3MiOiJbXCJVbml2ZXJzYWxSZWNoYXJnZXJcIl0ifQ.JZ6dnujyohmUYl4J4d-8tvvit4FwFxPFcPKYuoSONaEzHAsfPZw-yIV9baUXpeNd6IeJMD1AoQO7Z6Co524xldt3-2bTBIoXFxuZ-8jc1AUaVf4qJ9CxtQruOBYUdHSLMsOAF4EuNpVKDcSyRYdddXm6ZjYncSWcfl1q8MsOZDlbqM__y1CfOtJY-6DROzJzz2eNblL4bHrUNJbuPe3MOKXM9d9vsUSd3zEnRT5847_UPDJxNotIcHgHO_UhArNydq4DFG11NdUa_Wav63jjPrGEUWEVlLkxxWQ-6EDzfLFLiFP0dVfOQrWGvYnBZrhwKb6niFXqXR5tGkhidQ0Epg"
 
+                // Realizo la primera solicitud para obtener información de la tarjeta
                 val cardService = RetrofitClient.create().getBalance(authToken, cardNumber)
 
                 val requestUrl = cardService.request().url.toString()
@@ -93,6 +102,7 @@ class RegisterCardFragment : Fragment() {
                             val cardResponse = response.body()
                             Log.d("TAG", "Card Status: ${cardResponse?.status}")
 
+                            // Verifico si la tarjeta no es válida
                             if (cardResponse?.isValid == false) {
                                 handler.post {
                                     showToast(requireContext(), "Tarjeta no válida")
@@ -101,7 +111,7 @@ class RegisterCardFragment : Fragment() {
                                 }
                                 return
                             }
-
+                            // Realizo la segunda solicitud para obtener los datos de la tarjeta
                             val balanceService =
                                 RetrofitClient.create().getBalanceDetails(authToken, cardNumber)
 
@@ -124,6 +134,7 @@ class RegisterCardFragment : Fragment() {
                                         Log.d("TAG", "Balance: ${detailsResponse?.balance}")
 
                                         handler.post {
+                                            // Configuración de las acciones del usuario después de obtener los datos de la tarjeta
                                             binding.btnCheck.setOnClickListener {
                                                 val cardInfo = CardInfo(
                                                     card = cardResponse?.card ?: "",
@@ -135,6 +146,7 @@ class RegisterCardFragment : Fragment() {
                                                 binding.linearOptions.visibility = View.INVISIBLE
                                                 editTextSearch.setText("")
 
+                                                // Almaceno la información de la tarjeta en la base de datos
                                                 val executor = Executors.newSingleThreadExecutor()
 
                                                 executor.execute {
@@ -162,7 +174,7 @@ class RegisterCardFragment : Fragment() {
                                                 }
                                             }
 
-
+                                            // Configuración de la acción de cancelar
                                             binding.btnCancel.setOnClickListener {
                                                 binding.consCard.visibility = View.INVISIBLE
                                                 binding.linearOptions.visibility = View.INVISIBLE
@@ -170,6 +182,7 @@ class RegisterCardFragment : Fragment() {
 
                                             }
 
+                                            // Configuración del saldo de la tarjeta segun la respuesta de la consulta
                                             binding.tvNumberCard.text = cardResponse?.card
                                             binding.amount.text =
                                                 "$" + detailsResponse?.balance.toString()

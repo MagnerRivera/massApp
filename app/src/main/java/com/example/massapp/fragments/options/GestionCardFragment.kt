@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,8 @@ class GestionCardFragment : Fragment() {
     private lateinit var originalCardList: List<CardInfo>
     private lateinit var filteredCardList: MutableList<CardInfo>
 
+
+    // Lo llamo cuando el fragmento se adjunta a la actividad
     override fun onAttach(context: Context) {
         super.onAttach(context)
         cardInfoDao = MassAppDatabase.getInstance(context).cardInfoDao()
@@ -50,6 +53,8 @@ class GestionCardFragment : Fragment() {
         val imageSearch = binding.imageSearch
         val editTextSearch = binding.editTextSearch
 
+
+        // Manejo la visibilidad del cuadro de búsqueda al hacer clic en la imagen de búsqueda
         imageSearch.setOnClickListener {
             if (editTextSearch.visibility == View.VISIBLE) {
                 AnimationUtils.slideViewUp(editTextSearch)
@@ -64,10 +69,12 @@ class GestionCardFragment : Fragment() {
         recyclerView.adapter = cardAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Manejo la navegación de regreso al hacer click en el botón de la flecha hacia atras de gestión de tarjetas
         binding.backManagement.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        // Configuro el adaptador para manejar clicks en los elementos de la tarjetas
         cardAdapter.onItemClickListener = object : GestionCardAdapter.OnItemClickListener {
             override fun onItemClick(cardInfo: CardInfo, amount: String, date: String) {
                 val action = GestionCardFragmentDirections
@@ -80,6 +87,7 @@ class GestionCardFragment : Fragment() {
             }
         }
 
+        // Cargo las tarjetas desde la base de datos y configura el adaptador
         lifecycleScope.launch {
             originalCardList = withContext(Dispatchers.IO) {
                 cardInfoDao.getAllCardInfo()
@@ -90,6 +98,7 @@ class GestionCardFragment : Fragment() {
             cardAdapter.cardList = filteredCardList
             cardAdapter.notifyDataSetChanged()
 
+            // Actualizo la visibilidad del RecyclerView y el TextView de vacío
             if (filteredCardList.isEmpty()) {
                 binding.recyclerView.visibility = View.INVISIBLE
                 binding.tvEmpty.visibility = View.VISIBLE
@@ -107,6 +116,7 @@ class GestionCardFragment : Fragment() {
                 count: Int,
                 after: Int
             ) {
+                //
             }
 
             override fun onTextChanged(
@@ -115,6 +125,7 @@ class GestionCardFragment : Fragment() {
                 before: Int,
                 count: Int
             ) {
+                try {
                 // Filtro la lista original con el texto ingresado
                 filteredCardList.clear()
                 if (charSequence.isNullOrEmpty()) {
@@ -139,9 +150,14 @@ class GestionCardFragment : Fragment() {
                     binding.recyclerView.visibility = View.VISIBLE
                     binding.tvEmpty.visibility = View.INVISIBLE
                 }
+                } catch (e: Exception) {
+                    Log.e("GestionCardFragment", "Error al filtrar la lista: $e")
+                }
             }
 
-            override fun afterTextChanged(editable: Editable?) {}
+            override fun afterTextChanged(editable: Editable?) {
+                // Después de cambiar el texto
+            }
         })
 
         return binding.root

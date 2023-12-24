@@ -14,6 +14,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    // Proporciono la instancia única de la base de datos MassApp
     @Provides
     @Singleton
     fun provideMassAppDatabase(application: Application): MassAppDatabase {
@@ -26,6 +27,7 @@ object AppModule {
             .build()
     }
 
+    // Proporciono la interfaz de acceso a datos para la entidad User
     @Provides
     @Singleton
     fun provideUserDao(appDatabase: MassAppDatabase): UserDao {

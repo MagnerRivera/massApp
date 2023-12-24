@@ -38,6 +38,7 @@ class RegisterFragment : Fragment() {
     private val viewModel by viewModels<RegisterViewModel>()
     private var isDocumentEditable = false
 
+    // Creo la vista del fragmento
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,10 +48,11 @@ class RegisterFragment : Fragment() {
         return binding.root
     }
 
-    //method for the view to register a new user
+    // Configura la lógica del fragmento después de que se haya creado la vista
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Navega al fragmento de inicio de sesión al hacer clic en "¿Ya tienes una cuenta?"
         binding.tvDoYouHaveAccount.setOnClickListener {
             findNavController().navigate(R.id.action_registrerFragment_to_loginFragment)
         }
@@ -59,6 +61,7 @@ class RegisterFragment : Fragment() {
 
             val maxDigits = 12
 
+            // Formato del nombre cuando pierde el enfoque
             edNameRegister.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     val name = edNameRegister.text.toString().trim()
@@ -67,8 +70,10 @@ class RegisterFragment : Fragment() {
                 }
             }
 
+            // Limito la cantidad de dígitos en el campo de documento
             edDocumentRegister.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxDigits))
 
+            // Configuro el adaptador y el listener para el spinner de tipo de documento
             val spinnerValues = arrayOf("Seleccione tipo de documento", "Cédula de ciudadania", "Cédula de extranjeria", "Pasaporte")
             val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerValues)
             spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -86,21 +91,24 @@ class RegisterFragment : Fragment() {
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // No se necesita hacer nada aquí
+                    //
                 }
             }
 
+            // Realizo el registro cuando se hace click en el botón de registro
             buttonRegisterRegister.setOnClickListener {
                 if (!isDocumentEditable) {
                     Toast.makeText(requireContext(), "Seleccione un tipo de documento", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
 
+                // Validaciones de campos antes de realizar el registro
                 val nameRegex = edNameRegister.text.toString().trim()
                 val emailRegex = edEmailRegister.text.toString().trim()
                 val addressRegex = edAddressRegister.text.toString().trim()
                 val documentRegex = edDocumentRegister.text.toString().trim()
 
+                // Validación del formato de correo electrónico
                 if (!Patterns.EMAIL_ADDRESS.matcher(emailRegex)
                         .matches() || !emailRegex.contains("@") || (!emailRegex.endsWith(".com") && !emailRegex.endsWith(
                         ".co"
@@ -113,6 +121,7 @@ class RegisterFragment : Fragment() {
                     return@setOnClickListener
                 }
 
+                // Validaciones adicionales y creación del objeto de usuario
                 val passwordRegex = edPasswordRegister.text.toString().trim()
 
                 val nameValidation = validateName(nameRegex)
@@ -149,7 +158,7 @@ class RegisterFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-
+                // Creación del objeto de usuario
                 val user = User(
                     username = nameRegex,
                     email = emailRegex,
@@ -158,14 +167,14 @@ class RegisterFragment : Fragment() {
                     address = addressRegex,
                 )
 
+                // Lanzamiento de la operación de registro en un nuevo hilo
                 lifecycleScope.launch {
                     viewModel.createAccountWithEmailAndPassword(user, passwordRegex)
                 }
             }
         }
 
-        //lifecycleScope is a coroutine, to automatically manage coroutines based on the fragment lifecycle
-
+        // Observa el estado del registro y toma medidas en consecuencia
         lifecycleScope.launchWhenStarted {
             viewModel.register.collect {
                 when (it) {
@@ -179,6 +188,7 @@ class RegisterFragment : Fragment() {
 
                         Toast.makeText(requireContext(), "Registro exitoso", Toast.LENGTH_SHORT)
                             .show()
+                        // Retorno al fragmento anterior después del registro exitoso
                         findNavController().popBackStack()
                     }
 
@@ -191,6 +201,8 @@ class RegisterFragment : Fragment() {
                 }
             }
         }
+
+        // Observo las validaciones de correo electrónico y contraseña
         lifecycleScope.launchWhenStarted {
             viewModel.validation.collect { validation ->
                 if (validation.email is RegisterValidation.Failed) {

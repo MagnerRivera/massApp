@@ -33,13 +33,15 @@ class DetailCardFragment : Fragment() {
     private lateinit var cardFaceFrontView: View
     private lateinit var cardFaceBackView: View
 
+    // Conecto el contexto de la actividad actual al contexto del fragmento
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+        // Inicializo el DAO de la base de datos usando Hilt
         cardInfoDao = MassAppDatabase.getInstance(context).cardInfoDao()
     }
 
-
-
+    // Creo la vista del fragmento
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
@@ -49,15 +51,17 @@ class DetailCardFragment : Fragment() {
         cardFaceFrontView = inflater.inflate(R.layout.card_list_ittem, null)
         cardFaceBackView = inflater.inflate(R.layout.card_back_detail_list_item, null)
 
-
+        // Obtengo los argumentos pasados al fragmento desde el navGraph
         val cardNumber = arguments?.getString("cardNumber")
         val amount = arguments?.getString("amount")
         val date = arguments?.getString("date")
 
         Log.e("TAG", "onCreateView: cardNumber=$cardNumber, amount=$amount, date=$date")
 
+        // Configuro el número de tarjeta en la vista
         binding.cardNumber.text = cardNumber
 
+        // Navego hacia atrás al hacer click en el botón de retroceder
         binding.backManagement.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -74,20 +78,21 @@ class DetailCardFragment : Fragment() {
                         dialog.dismiss()
                     }
                     setPositiveButton("Sí") { dialog, _ ->
-                        // Obtén el número de tarjeta desde los argumentos
+                        // Obtengo el número de tarjeta desde los argumentos
                         val cardNumber = arguments?.getString("cardNumber")
 
-                        // Si el número de tarjeta no es nulo, realiza la eliminación
+                        // Si el número de tarjeta no es nulo, realizo la eliminación
                         cardNumber?.let {
                             lifecycleScope.launch(Dispatchers.IO) {
                                 val cardInfo = cardInfoDao.getCardInfoByCardNumber(it)
 
-                                // Si la tarjeta existe, elimínala de la base de datos
+                                // Si la tarjeta existe, la elimino de la base de datos
                                 cardInfo?.let {
                                     cardInfoDao.deleteCardInfo(it)
                                 }
                             }
                         }
+                        // Navega hacia atrás después de la eliminación de la tarjeta
                         findNavController().popBackStack()
                         dialog.dismiss()
                     }
@@ -101,6 +106,7 @@ class DetailCardFragment : Fragment() {
         return binding.root
     }
 
+    // Configuro la lógica cuando la vista ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -108,19 +114,21 @@ class DetailCardFragment : Fragment() {
         handler.postDelayed(flipCardRunnable, flipCardDelayMillis)
     }
 
+    // Detiengo la ejecución automática cuando se destruye la vista
     override fun onDestroyView() {
         super.onDestroyView()
-        // Detén la ejecución automática de flipCard cuando se destruye la vista
+        // Detengo la ejecución automática de flipCard cuando se destruye la vista
         handler.removeCallbacks(flipCardRunnable)
     }
 
+    // Lógica para ejecutar automáticamente el cambio de estilo de la tarjeta
     private val flipCardRunnable = object : Runnable {
         override fun run() {
             flipCardAutomatically()
             handler.postDelayed(this, flipCardDelayMillis)
         }
     }
-
+    // Función para cambiar automáticamente el estilo de la tarjeta
     private fun flipCardAutomatically() {
         // Lógica para cambiar automáticamente el estilo de la tarjeta
         val currentVisibleView = if (isCardFront) binding.cardFaceFront else binding.cardFaceBack
@@ -131,6 +139,7 @@ class DetailCardFragment : Fragment() {
         flipCard(requireContext(), currentVisibleView, currentInVisibleView)
     }
 
+    // Función para realizar la animación de cambio de estilo de la tarjeta
     private fun flipCard(context: Context, visibleView: View, inVisibleView: View) {
         try {
             visibleView.visibility = View.VISIBLE

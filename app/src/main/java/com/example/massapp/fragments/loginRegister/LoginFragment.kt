@@ -22,6 +22,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding: FragmentLoginBinding
     private val viewModel by viewModels<LoginViewModel>()
 
+    // Creo la vista del fragmento
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,9 +32,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return binding.root
     }
 
+    // Configuro la lógica del fragmento después de que se haya creado la vista
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Navego al fragmento de registro al hacer click en el texto de "No tengo una cuenta"
         binding.tvDontHaveAccount.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrerFragment)
         }
@@ -47,6 +50,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         }
 
+        // Observo el estado del inicio de sesión y toma medidas en consecuencia ya sea exitoso o fallido segun credenciales
         lifecycleScope.launchWhenStarted {
             viewModel.login.collect {
                 when (it) {
@@ -56,6 +60,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                     is Resource.Success -> {
                         binding.buttonLoginLogin.revertAnimation()
+                        // Inicio la actividad de home que contiene las opciones de Registrar o Gestionar la tarjeta si el inicio de sesión es exitoso
                         Intent(requireActivity(), OptionsActivity::class.java).also { intent ->
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                             startActivity(intent)
@@ -68,6 +73,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     }
 
                     is Resource.Error -> {
+                        // Muestro un mensaje de error en caso de error durante el inicio de sesión
                         Toast.makeText(requireContext(), it.menssage, Toast.LENGTH_LONG).show()
                         binding.buttonLoginLogin.revertAnimation()
                     }

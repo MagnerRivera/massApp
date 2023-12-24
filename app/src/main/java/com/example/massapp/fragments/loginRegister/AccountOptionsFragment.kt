@@ -12,22 +12,27 @@ import com.example.massapp.databinding.FragmentAccountOptionsBinding
 class AccountOptionsFragment : Fragment(R.layout.fragment_account_options) {
     private lateinit var binding: FragmentAccountOptionsBinding
 
+    // Creo la vista del fragmento
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        // Info y vinculo la vista usando el View Binding
         binding = FragmentAccountOptionsBinding.inflate(inflater)
         return binding.root
     }
 
+    // Configuro la lógica después de que la vista ha sido creada
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Configuro el evento de click para el botón de inicio de sesión
         binding.buttonLoginAccountOptions.setOnClickListener {
             findNavController().navigate(R.id.action_accountOptionsFragment_to_loginFragment)
         }
 
+        // Configuro el evento de click para el botón de registro
         binding.buttonRegisterAccountOptions.setOnClickListener {
             findNavController().navigate(R.id.action_accountOptionsFragment_to_registrerFragment)
         }
